@@ -20,7 +20,7 @@ namespace WebApi_BestPractices
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration; 
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -30,8 +30,8 @@ namespace WebApi_BestPractices
         {
             services.AddConfigureCors();
             services.ConfigureLoggerService();
-            services.ConfigureSqlContext(Configuration); 
-            services.AddControllers(); 
+            services.ConfigureSqlContext(Configuration);
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +42,16 @@ namespace WebApi_BestPractices
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection(); 
+            app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
+            });
+
+            app.UseHsts();
 
             app.UseRouting();
 
