@@ -1,18 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi_BestPractices.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class CompanyController : BaseApiController
     {
+
+        private ILoggerManager _logger;
+
+        public CompanyController(ILoggerManager logger)
+        {
+            _logger = logger;
+        }
 
         [HttpGet]
         [ProducesResponseType(404)]
         public async Task<IActionResult> Get()
         {
+            _logger.LogInfo("log information test");
             return Ok(Task.FromResult(new List<int>() { 1, 2, 3 }).Result);
-
         }
 
         //[HttpGet]
