@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi_BestPractices.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
     public class CompanyController : BaseApiController
     {
@@ -17,6 +16,7 @@ namespace WebApi_BestPractices.Controllers
             _logger = logger;
         }
 
+        // api/company
         [HttpGet]
         [ProducesResponseType(404)]
         public async Task<IActionResult> Get()
