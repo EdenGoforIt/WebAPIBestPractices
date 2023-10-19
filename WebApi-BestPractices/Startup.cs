@@ -1,9 +1,11 @@
+using Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
+using Repository;
 using System.IO;
 using WebApi_BestPractices.Extensions;
 
@@ -26,6 +28,7 @@ namespace WebApi_BestPractices
             services.ConfigureLoggerService();
             services.ConfigureSqlContext(Configuration);
             services.ConfigureLoggerService();
+            services.ConfigureRepositoryManager();
             services.AddControllers();
         }
 
@@ -57,5 +60,6 @@ namespace WebApi_BestPractices
                 endpoints.MapControllers();
             });
         }
+
     }
 }
