@@ -15,7 +15,6 @@ namespace Repository
             Context = context;
         }
 
-
         public IQueryable<T> FindAll(bool trackChanges)
         {
             return !trackChanges ? Context.Set<T>().AsNoTracking() : Context.Set<T>();
