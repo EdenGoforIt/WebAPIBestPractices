@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 using Contracts;
@@ -28,6 +29,22 @@ namespace WebApi_BestPractices.Controllers
             var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
 
             return Ok(companiesDto);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCompany(Guid id)
+        {
+            var company = _repository.Company.GetCompany(id, trackChanges: false);
+
+            if (company == null)
+            {
+                _logger.LogInfo($"Company with Id: {id} was not found");
+
+                return NotFound(); ;
+            }
+
+            return Ok(_mapper.Map<CompanyDto>(company));
+
         }
     }
 }

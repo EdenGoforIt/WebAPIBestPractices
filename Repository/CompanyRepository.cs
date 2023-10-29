@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Contracts;
 using Entities.Models;
@@ -15,5 +16,9 @@ namespace Repository
             return FindAll(trackChanges).OrderBy(x => x.Name).ToList();
         }
 
+        public Company GetCompany(Guid id, bool trackChanges)
+        {
+            return FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefault();
+        }
     }
 }
