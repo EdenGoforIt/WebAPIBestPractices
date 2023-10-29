@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -27,20 +24,10 @@ namespace WebApi_BestPractices.Controllers
         [HttpGet]
         public IActionResult GetCompanies()
         {
-            try
-            {
-                var companies = _repository.Company.GetAllCompanies(trackChanges: false);
-                var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+            var companies = _repository.Company.GetAllCompanies(trackChanges: false);
+            var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
 
-                return Ok(companiesDto);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the {nameof(GetCompanies)}: {ex}");
-                return StatusCode(500);
-            }
+            return Ok(companiesDto);
         }
-
     }
-
 }
