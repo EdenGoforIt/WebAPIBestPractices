@@ -42,5 +42,30 @@ namespace WebApi_BestPractices.Controllers
 			return Ok(employeesDto);
 		}
 
+		[HttpGet("{id}")]
+		public IActionResult GetEmployee(Guid companyId, Guid id)
+		{
+			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+
+			if (company is null)
+			{
+				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+				return NotFound();
+			}
+
+			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: false);
+
+			if (employee is null)
+			{
+				_logger.LogInfo($"Employee with id: ${id} doesn't exist");
+
+				return NotFound();
+			}
+
+			var employeeDto = _mapper.Map<EmployeeDto>(employee);
+
+			return Ok(employeeDto);
+		}
 	}
 }
