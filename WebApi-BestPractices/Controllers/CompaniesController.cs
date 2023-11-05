@@ -65,7 +65,7 @@ namespace WebApi_BestPractices.Controllers
 
             var companyToReturn = _mapper.Map<CompanyDto>(company);
 
-            return CreatedAtRoute("GetCompanyById", new { id = companyToReturn.Id }, companyToReturn);
+            return CreatedAtRoute("GetCompanyById", new { companyToReturn.Id }, companyToReturn);
         }
     }
 }

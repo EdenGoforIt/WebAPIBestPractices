@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi_BestPractices.Controllers
@@ -42,7 +43,7 @@ namespace WebApi_BestPractices.Controllers
 			return Ok(employeesDto);
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet("{id}", Name = "GetEmployeeById")]
 		public IActionResult GetEmployee(Guid companyId, Guid id)
 		{
 			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
@@ -67,5 +68,34 @@ namespace WebApi_BestPractices.Controllers
 
 			return Ok(employeeDto);
 		}
+
+		[HttpPost]
+		public IActionResult CreateEmployee(Guid companyId, [FromBody] EmployeeForCreationDto employeeDto)
+		{
+			if (employeeDto is null)
+			{
+				_logger.LogError("EmployeeDto is null");
+				return BadRequest("EmployeeDto is null");
+			}
+
+			var employee = _mapper.Map<Employee>(employeeDto);
+
+			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+
+			if (company is null)
+			{
+				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+				return NotFound();
+			}
+
+			_repository.Employe.CreateEmploye(companyId, employee);
+			_repository.Save();
+
+			var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
+
+			return CreatedAtRoute("GetEmployeeById", new { companyId, employeeToReturn.Id }, employeeToReturn);
+		}
+
 	}
 }
