@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi_BestPractices.Controllers
@@ -31,7 +32,7 @@ namespace WebApi_BestPractices.Controllers
             return Ok(companiesDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCompanyById")]
         public IActionResult GetCompany(Guid id)
         {
             var company = _repository.Company.GetCompany(id, trackChanges: false);
@@ -45,6 +46,26 @@ namespace WebApi_BestPractices.Controllers
 
             return Ok(_mapper.Map<CompanyDto>(company));
 
+        }
+
+        [HttpPost]
+        public IActionResult CreatecCompany([FromBody] CompanyForCreationDto companyDto)
+        {
+            if (companyDto == null)
+            {
+                _logger.LogError("CompanyDto is null");
+
+                return BadRequest("CompanyDto is null");
+            }
+
+            var company = _mapper.Map<Company>(companyDto);
+
+            _repository.Company.CreateCompany(company);
+            _repository.Save();
+
+            var companyToReturn = _mapper.Map<CompanyDto>(company);
+
+            return CreatedAtRoute("GetCompanyById", new { id = companyToReturn.Id }, companyToReturn);
         }
     }
 }
