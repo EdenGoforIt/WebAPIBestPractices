@@ -69,7 +69,7 @@ namespace WebApi_BestPractices.Controllers
             return CreatedAtRoute("CompanyById", new { companyToReturn.Id }, companyToReturn);
         }
 
-        [HttpGet("collection/{ids}", Name = "CompaniesByIds")]
+        [HttpGet("collection/{ids}", Name = "CompanyCollection")]
         public IActionResult GetCompanyCollection(IEnumerable<Guid> ids)
         {
             if (ids is null)
@@ -89,6 +89,31 @@ namespace WebApi_BestPractices.Controllers
             var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
 
             return Ok(companiesToReturn);
+        }
+
+        [HttpGet("collection")]
+        public IActionResult CreateCompanyCollection(IEnumerable<CompanyForCreationDto> companyCollection)
+        {
+            if (companyCollection is null)
+            {
+                _logger.LogError("Company Collection is null");
+                return BadRequest("Company Collection is null");
+            }
+
+            var companyEntities = _mapper.Map<IEnumerable<Company>>(companyCollection);
+
+            foreach (var company in companyEntities)
+            {
+                _repository.Company.CreateCompany(company);
+            }
+
+            _repository.Save();
+            var companyCollectionToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
+
+            // No Header Location support for the list. Thus, creating comma separated
+            var ids = string.Join(", ", companyCollectionToReturn.Select(c => c.Id));
+
+            return CreatedAtRoute("CompanyCollection", new { ids }, companyCollectionToReturn);
         }
     }
 }
