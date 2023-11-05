@@ -43,7 +43,7 @@ namespace WebApi_BestPractices.Controllers
 			return Ok(employeesDto);
 		}
 
-		[HttpGet("{id}", Name = "GetEmployeeById")]
+		[HttpGet("{id}", Name = "EmployeeById")]
 		public IActionResult GetEmployee(Guid companyId, Guid id)
 		{
 			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
@@ -94,7 +94,7 @@ namespace WebApi_BestPractices.Controllers
 
 			var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
 
-			return CreatedAtRoute("GetEmployeeById", new { companyId, employeeToReturn.Id }, employeeToReturn);
+			return CreatedAtRoute("EmployeeById", new { companyId, employeeToReturn.Id }, employeeToReturn);
 		}
 
 	}

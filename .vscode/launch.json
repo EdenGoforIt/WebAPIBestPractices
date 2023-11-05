@@ -9,9 +9,6 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "launchBrowser": {
-        "enabled": false
-      },
       // If you have changed target frameworks, make sure to update the program path.
       "program": "${workspaceFolder}/WebApi-BestPractices/bin/Debug/net7.0/WebApiBestPractice.API.dll",
       "args": [],

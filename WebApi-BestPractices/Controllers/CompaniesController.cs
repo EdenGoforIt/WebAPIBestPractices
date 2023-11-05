@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -32,7 +33,7 @@ namespace WebApi_BestPractices.Controllers
             return Ok(companiesDto);
         }
 
-        [HttpGet("{id}", Name = "GetCompanyById")]
+        [HttpGet("{id}", Name = "CompanyById")]
         public IActionResult GetCompany(Guid id)
         {
             var company = _repository.Company.GetCompany(id, trackChanges: false);
@@ -65,7 +66,29 @@ namespace WebApi_BestPractices.Controllers
 
             var companyToReturn = _mapper.Map<CompanyDto>(company);
 
-            return CreatedAtRoute("GetCompanyById", new { companyToReturn.Id }, companyToReturn);
+            return CreatedAtRoute("CompanyById", new { companyToReturn.Id }, companyToReturn);
+        }
+
+        [HttpGet("collection/{ids}", Name = "CompaniesByIds")]
+        public IActionResult GetCompanyCollection(IEnumerable<Guid> ids)
+        {
+            if (ids is null)
+            {
+                _logger.LogError("Ids are null");
+                return BadRequest("Ids are null");
+            }
+
+            var companies = _repository.Company.GetByIds(ids, trackChanges: false);
+
+            if (ids.Count() != companies.Count())
+            {
+                _logger.LogError("Some Ids are not valid in the collection");
+                return BadRequest("Some Ids are not valid in the collection");
+            }
+
+            var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+
+            return Ok(companiesToReturn);
         }
     }
 }
