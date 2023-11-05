@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Entities.DataTransferObjects
 {
@@ -7,5 +8,6 @@ namespace Entities.DataTransferObjects
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public string FullAddress { get; set; }
+		public IEnumerable<EmployeeDto> Employees { get; set; }
 	}
 }
