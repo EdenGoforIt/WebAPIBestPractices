@@ -6,6 +6,8 @@ using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using WebApi_BestPractices.ModelBinders;
 
 namespace WebApi_BestPractices.Controllers
 {
@@ -70,7 +72,7 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpGet("collection/{ids}", Name = "CompanyCollection")]
-        public IActionResult GetCompanyCollection(IEnumerable<Guid> ids)
+        public IActionResult GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {
             if (ids is null)
             {
@@ -91,7 +93,7 @@ namespace WebApi_BestPractices.Controllers
             return Ok(companiesToReturn);
         }
 
-        [HttpGet("collection")]
+        [HttpPost("collection")]
         public IActionResult CreateCompanyCollection(IEnumerable<CompanyForCreationDto> companyCollection)
         {
             if (companyCollection is null)
