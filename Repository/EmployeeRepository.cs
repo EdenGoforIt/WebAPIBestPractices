@@ -12,18 +12,18 @@ namespace Repository
         {
         }
 
-        public void CreateEmploye(Guid companyId, Employee employee)
+        public void CreateEmploye(long companyId, Employee employee)
         {
             employee.CompanyId = companyId;
             Create(employee);
         }
 
-        public Employee GetEmployee(Guid company, Guid id, bool trackChanges)
+        public Employee GetEmployee(long companyId, long id, bool trackChanges)
         {
-            return FindByCondition(e => e.Id.Equals(id), trackChanges).SingleOrDefault();
+            return FindByCondition(e => e.Id.Equals(id) && e.CompanyId.Equals(companyId), trackChanges).SingleOrDefault();
         }
 
-        public IEnumerable<Employee> GetEmployees(Guid companyId, bool trackChanges)
+        public IEnumerable<Employee> GetEmployees(long companyId, bool trackChanges)
         {
             return FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.Name);
         }

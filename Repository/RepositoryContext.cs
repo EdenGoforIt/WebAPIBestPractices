@@ -12,8 +12,7 @@ namespace Repository
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CompanyConfiguration());
-            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            // modelBuilder.ApplyConfiguration(new CompanyConfiguration());
         }
 
         public DbSet<Company> Companies { get; set; }

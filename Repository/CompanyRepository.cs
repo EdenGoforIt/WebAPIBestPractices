@@ -22,12 +22,12 @@ namespace Repository
             return FindAll(trackChanges).OrderBy(x => x.Name).ToList();
         }
 
-        public IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackChanges)
+        public IEnumerable<Company> GetByIds(IEnumerable<long> ids, bool trackChanges)
         {
             return FindByCondition(x => ids.Contains(x.Id), trackChanges).ToList();
         }
 
-        public Company GetCompany(Guid id, bool trackChanges)
+        public Company GetCompany(long id, bool trackChanges)
         {
             return FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefault();
         }
