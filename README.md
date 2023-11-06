@@ -13,3 +13,5 @@ docker run -e "ACCEPT_EULA=1" -e "MSSQL_SA_PASSWORD=reallyStrongPwd123" -e "MSSQ
 # dotnet command for mac
 
 dotnet ef database update --verbose -s ../WebApi-BestPractices
+dotnet ef migrations -s ../WebApi-BestPractices add ChangeGuidToIDs --verbose;
+dotnet ef migrations remove -s ../WebApi-BestPractices

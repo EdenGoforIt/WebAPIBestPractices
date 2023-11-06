@@ -25,7 +25,7 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult GetEmployeesForCompany(Guid companyId)
+		public IActionResult GetEmployeesForCompany(long companyId)
 		{
 			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
 
@@ -44,7 +44,7 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpGet("{id}", Name = "EmployeeById")]
-		public IActionResult GetEmployee(Guid companyId, Guid id)
+		public IActionResult GetEmployee(long companyId, long id)
 		{
 			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
 
@@ -70,7 +70,7 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult CreateEmployee(Guid companyId, [FromBody] EmployeeForCreationDto employeeDto)
+		public IActionResult CreateEmployee(long companyId, [FromBody] EmployeeForCreationDto employeeDto)
 		{
 			if (employeeDto is null)
 			{

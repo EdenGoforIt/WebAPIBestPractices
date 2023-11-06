@@ -36,7 +36,7 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpGet("{id}", Name = "CompanyById")]
-        public IActionResult GetCompany(Guid id)
+        public IActionResult GetCompany(long id)
         {
             var company = _repository.Company.GetCompany(id, trackChanges: false);
 
@@ -72,7 +72,7 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpGet("collection/{ids}", Name = "CompanyCollection")]
-        public IActionResult GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
+        public IActionResult GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<long> ids)
         {
             if (ids is null)
             {

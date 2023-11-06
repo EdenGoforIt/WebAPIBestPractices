@@ -31,10 +31,10 @@ namespace WebApi_BestPractices.ModelBinders
 
 			var objectArray = providedValue.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => converter.ConvertFromString(x.Trim())).ToArray();
 
-			var guidArray = Array.CreateInstance(genericType, objectArray.Length);
+			var array = Array.CreateInstance(genericType, objectArray.Length);
 
-			objectArray.CopyTo(guidArray, 0);
-			bindingContext.Model = guidArray;
+			objectArray.CopyTo(array, 0);
+			bindingContext.Model = array;
 
 			bindingContext.Result = ModelBindingResult.Success(bindingContext.Model);
 

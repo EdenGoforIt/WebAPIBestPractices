@@ -5,7 +5,7 @@ namespace Entities.DataTransferObjects
 {
 	public class CompanyDto
 	{
-		public Guid Id { get; set; }
+		public long Id { get; set; }
 		public string Name { get; set; }
 		public string FullAddress { get; set; }
 		public IEnumerable<EmployeeDto> Employees { get; set; }
