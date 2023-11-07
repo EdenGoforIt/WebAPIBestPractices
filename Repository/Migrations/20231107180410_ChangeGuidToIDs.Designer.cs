@@ -11,7 +11,7 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20231106184619_ChangeGuidToIDs")]
+    [Migration("20231107180410_ChangeGuidToIDs")]
     partial class ChangeGuidToIDs
     {
         /// <inheritdoc />
