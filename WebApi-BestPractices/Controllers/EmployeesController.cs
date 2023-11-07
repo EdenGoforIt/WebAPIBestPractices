@@ -97,5 +97,32 @@ namespace WebApi_BestPractices.Controllers
 			return CreatedAtRoute("EmployeeById", new { companyId, employeeToReturn.Id }, employeeToReturn);
 		}
 
+		[HttpDelete("{id}")]
+		public IActionResult DeleteEmployee(long companyId, long id)
+		{
+			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+
+			if (company is null)
+			{
+				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+				return NotFound();
+			}
+
+			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
+
+			if (employee is null)
+			{
+				_logger.LogInfo($"Employee with id: ${id} doesn't exist");
+
+				return NotFound();
+			}
+
+			_repository.Employe.DeleteEmployee(employee);
+			_repository.Save();
+
+			return NoContent();
+		}
+
 	}
 }
