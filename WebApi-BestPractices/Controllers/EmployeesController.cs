@@ -124,5 +124,38 @@ namespace WebApi_BestPractices.Controllers
 			return NoContent();
 		}
 
+
+		[HttpPut("{id}")]
+		public IActionResult UpdateEmployee(long companyId, long id, [FromBody] EmployeeForUpdateDto dto)
+		{
+			if (dto is null)
+			{
+				_logger.LogInfo("Dto is null");
+				return BadRequest("Dto is null");
+			}
+
+			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+
+			if (company is null)
+			{
+				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+				return NotFound();
+			}
+
+			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
+
+			if (employee is null)
+			{
+				_logger.LogInfo($"Employee with id: ${id} doesn't exist");
+
+				return NotFound();
+			}
+
+			_mapper.Map(dto, employee);
+			_repository.Save();
+
+			return NoContent();
+		}
 	}
 }
