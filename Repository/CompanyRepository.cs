@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -19,12 +20,12 @@ namespace Repository
 
         public void DeleteCompany(Company company)
         {
-
+            Delete(company);
         }
 
         public IEnumerable<Company> GetAllCompanies(bool trackChanges)
         {
-            return FindAll(trackChanges).OrderBy(x => x.Name).ToList();
+            return FindAll(trackChanges).Include(x => x.Employees).OrderBy(x => x.Name).ToList();
         }
 
         public IEnumerable<Company> GetByIds(IEnumerable<long> ids, bool trackChanges)

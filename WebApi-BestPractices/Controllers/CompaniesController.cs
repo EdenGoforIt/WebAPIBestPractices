@@ -117,5 +117,23 @@ namespace WebApi_BestPractices.Controllers
 
             return CreatedAtRoute("CompanyCollection", new { ids }, companyCollectionToReturn);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCompany(long id)
+        {
+            var company = _repository.Company.GetCompany(id, trackChanges: false);
+
+            if (company is null)
+            {
+                _logger.LogInfo($"Company with id: ${id} doesn't exist");
+
+                return NotFound();
+            }
+
+            _repository.Company.DeleteCompany(company);
+            _repository.Save();
+
+            return NoContent();
+        }
     }
 }
