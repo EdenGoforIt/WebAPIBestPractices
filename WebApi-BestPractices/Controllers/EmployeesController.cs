@@ -79,6 +79,12 @@ namespace WebApi_BestPractices.Controllers
 				return BadRequest("EmployeeDto is null");
 			}
 
+			if (!ModelState.IsValid)
+			{
+				_logger.LogError("Invalid model state");
+				return UnprocessableEntity(ModelState);
+			}
+
 			var employee = _mapper.Map<Employee>(employeeDto);
 
 			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
