@@ -135,5 +135,28 @@ namespace WebApi_BestPractices.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
+        {
+            if (dto is null)
+            {
+                _logger.LogError("Dto is null");
+                return BadRequest("Dto is null");
+            }
+
+            var company = _repository.Company.GetCompany(id, trackChanges: true);
+
+            if (company is null)
+            {
+                _logger.LogError("Company was not found");
+                return NotFound("Company was not found");
+            }
+
+            _mapper.Map(dto, company);
+            _repository.Save();
+
+            return NoContent();
+        }
     }
 }

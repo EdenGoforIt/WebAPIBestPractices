@@ -4,6 +4,7 @@ using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi_BestPractices.Controllers
@@ -153,6 +154,44 @@ namespace WebApi_BestPractices.Controllers
 			}
 
 			_mapper.Map(dto, employee);
+			_repository.Save();
+
+			return NoContent();
+		}
+
+		[HttpPatch("{id}")]
+		public IActionResult UpdateEmployeeForCompany(long companyId, long id, [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDto)
+		{
+			if (patchDto is null)
+			{
+				_logger.LogError("Dto is null");
+				return BadRequest("Dto is null");
+			}
+
+			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+
+			if (company is null)
+			{
+				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+				return NotFound();
+			}
+
+			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
+
+			if (employee is null)
+			{
+				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+				return NotFound();
+			}
+
+			var employeeDto = _mapper.Map<EmployeeForUpdateDto>(employee);
+
+			patchDto.ApplyTo(employeeDto);
+
+			_mapper.Map(employeeDto, employee);
+
 			_repository.Save();
 
 			return NoContent();
