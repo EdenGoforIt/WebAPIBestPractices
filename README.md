@@ -15,3 +15,12 @@ docker run -e "ACCEPT_EULA=1" -e "MSSQL_SA_PASSWORD=reallyStrongPwd123" -e "MSSQ
 dotnet ef database update --verbose -s ../WebApi-BestPractices
 dotnet ef migrations -s ../WebApi-BestPractices add ChangeGuidToIDs --verbose;
 dotnet ef migrations remove -s ../WebApi-BestPractices
+
+# how to run
+
+- open the `Docker` desktop and run sql express
+- go to the webapi-bestpractices by `cd webapi-bestpractices`
+- dotnet run
+
+or just
+F5
