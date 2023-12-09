@@ -159,6 +159,12 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
+			if (!ModelState.IsValid)
+			{
+				_logger.LogError("Invalid model state");
+				return UnprocessableEntity(ModelState);
+			}
+
 			_mapper.Map(dto, employee);
 			_repository.Save();
 
@@ -194,7 +200,17 @@ namespace WebApi_BestPractices.Controllers
 
 			var employeeDto = _mapper.Map<EmployeeForUpdateDto>(employee);
 
-			patchDto.ApplyTo(employeeDto);
+			// This does data modeling and Model State Binding
+			patchDto.ApplyTo(employeeDto, ModelState);
+
+			// Model validation with attributes
+			TryValidateModel(employeeDto);
+
+			if (!ModelState.IsValid)
+			{
+				_logger.LogError("Invalid model state");
+				return UnprocessableEntity(ModelState);
+			}
 
 			_mapper.Map(employeeDto, employee);
 
