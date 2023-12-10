@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -23,19 +24,19 @@ namespace Repository
             Delete(company);
         }
 
-        public IEnumerable<Company> GetAllCompanies(bool trackChanges)
+        public async Task<IEnumerable<Company>> GetAllCompanies(bool trackChanges)
         {
-            return FindAll(trackChanges).Include(x => x.Employees).OrderBy(x => x.Name).ToList();
+            return await FindAll(trackChanges).Include(x => x.Employees).OrderBy(x => x.Name).ToListAsync();
         }
 
-        public IEnumerable<Company> GetByIds(IEnumerable<long> ids, bool trackChanges)
+        public async Task<IEnumerable<Company>> GetByIds(IEnumerable<long> ids, bool trackChanges)
         {
-            return FindByCondition(x => ids.Contains(x.Id), trackChanges).ToList();
+            return await FindByCondition(x => ids.Contains(x.Id), trackChanges).ToListAsync();
         }
 
-        public Company GetCompany(long id, bool trackChanges)
+        public async Task<Company> GetCompany(long id, bool trackChanges)
         {
-            return FindByCondition(x => x.Id.Equals(id), trackChanges).Include(x => x.Employees).SingleOrDefault();
+            return await FindByCondition(x => x.Id.Equals(id), trackChanges).Include(x => x.Employees).SingleOrDefaultAsync();
         }
     }
 }
