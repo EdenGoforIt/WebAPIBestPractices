@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -13,7 +14,6 @@ namespace WebApi_BestPractices.Controllers
 	[ApiController]
 	public class EmployeesController : ControllerBase
 	{
-
 		private readonly IRepositoryManager _repository;
 		private readonly ILoggerManager _logger;
 		private readonly IMapper _mapper;
@@ -26,9 +26,9 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult GetEmployeesForCompany(long companyId)
+		public async Task<IActionResult> GetEmployeesForCompany(long companyId)
 		{
-			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
 			{
@@ -37,7 +37,7 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
-			var employees = _repository.Employe.GetEmployees(companyId, trackChanges: false);
+			var employees = await _repository.Employe.GetEmployees(companyId, trackChanges: false);
 
 			var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
 
@@ -45,9 +45,9 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpGet("{id}", Name = "EmployeeById")]
-		public IActionResult GetEmployee(long companyId, long id)
+		public async Task<IActionResult> GetEmployee(long companyId, long id)
 		{
-			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
 			{
@@ -56,7 +56,7 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
-			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: false);
+			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: false);
 
 			if (employee is null)
 			{
@@ -71,7 +71,7 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult CreateEmployee(long companyId, [FromBody] EmployeeForCreationDto employeeDto)
+		public async Task<IActionResult> CreateEmployee(long companyId, [FromBody] EmployeeForCreationDto employeeDto)
 		{
 			if (employeeDto is null)
 			{
@@ -87,7 +87,7 @@ namespace WebApi_BestPractices.Controllers
 
 			var employee = _mapper.Map<Employee>(employeeDto);
 
-			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
 			{
@@ -97,7 +97,7 @@ namespace WebApi_BestPractices.Controllers
 			}
 
 			_repository.Employe.CreateEmploye(companyId, employee);
-			_repository.Save();
+			await _repository.SaveAsync();
 
 			var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
 
@@ -105,9 +105,9 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		public IActionResult DeleteEmployee(long companyId, long id)
+		public async Task<IActionResult> DeleteEmployee(long companyId, long id)
 		{
-			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
 			{
@@ -116,7 +116,7 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
-			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
+			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
 
 			if (employee is null)
 			{
@@ -126,14 +126,14 @@ namespace WebApi_BestPractices.Controllers
 			}
 
 			_repository.Employe.DeleteEmployee(employee);
-			_repository.Save();
+			await _repository.SaveAsync();
 
 			return NoContent();
 		}
 
 
 		[HttpPut("{id}")]
-		public IActionResult UpdateEmployee(long companyId, long id, [FromBody] EmployeeForUpdateDto dto)
+		public async Task<IActionResult> UpdateEmployee(long companyId, long id, [FromBody] EmployeeForUpdateDto dto)
 		{
 			if (dto is null)
 			{
@@ -141,7 +141,7 @@ namespace WebApi_BestPractices.Controllers
 				return BadRequest("Dto is null");
 			}
 
-			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
 			{
@@ -150,7 +150,7 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
-			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
+			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
 
 			if (employee is null)
 			{
@@ -166,13 +166,13 @@ namespace WebApi_BestPractices.Controllers
 			}
 
 			_mapper.Map(dto, employee);
-			_repository.Save();
+			await _repository.SaveAsync();
 
 			return NoContent();
 		}
 
 		[HttpPatch("{id}")]
-		public IActionResult UpdateEmployeeForCompany(long companyId, long id, [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDto)
+		public async Task<IActionResult> UpdateEmployeeForCompany(long companyId, long id, [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDto)
 		{
 			if (patchDto is null)
 			{
@@ -180,7 +180,7 @@ namespace WebApi_BestPractices.Controllers
 				return BadRequest("Dto is null");
 			}
 
-			var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
 			{
@@ -189,7 +189,7 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
-			var employee = _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
+			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
 
 			if (employee is null)
 			{
@@ -214,7 +214,7 @@ namespace WebApi_BestPractices.Controllers
 
 			_mapper.Map(employeeDto, employee);
 
-			_repository.Save();
+			await _repository.SaveAsync();
 
 			return NoContent();
 		}

@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using System.Threading.Tasks;
+using Contracts;
 
 namespace Repository
 {
@@ -17,6 +18,6 @@ namespace Repository
             _repositoryContext = repository;
         }
 
-        public void Save() => _repositoryContext.SaveChanges();
+        public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
     }
 }

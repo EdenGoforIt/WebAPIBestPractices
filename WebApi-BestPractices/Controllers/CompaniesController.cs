@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using WebApi_BestPractices.ModelBinders;
 
 namespace WebApi_BestPractices.Controllers
@@ -27,18 +26,18 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCompanies()
+        public async Task<IActionResult> GetCompanies()
         {
-            var companies = _repository.Company.GetAllCompanies(trackChanges: false);
+            var companies = await _repository.Company.GetAllCompanies(trackChanges: false);
             var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
 
             return Ok(companiesDto);
         }
 
         [HttpGet("{id}", Name = "CompanyById")]
-        public IActionResult GetCompany(long id)
+        public async Task<IActionResult> GetCompany(long id)
         {
-            var company = _repository.Company.GetCompany(id, trackChanges: false);
+            var company = await _repository.Company.GetCompany(id, trackChanges: false);
 
             if (company == null)
             {
@@ -52,7 +51,7 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatecCompany([FromBody] CompanyForCreationDto companyDto)
+        public async Task<IActionResult> CreatecCompany([FromBody] CompanyForCreationDto companyDto)
         {
             if (companyDto == null)
             {
@@ -64,7 +63,7 @@ namespace WebApi_BestPractices.Controllers
             var company = _mapper.Map<Company>(companyDto);
 
             _repository.Company.CreateCompany(company);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             var companyToReturn = _mapper.Map<CompanyDto>(company);
 
@@ -72,7 +71,7 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpGet("collection/{ids}", Name = "CompanyCollection")]
-        public IActionResult GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<long> ids)
+        public async Task<IActionResult> GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<long> ids)
         {
             if (ids is null)
             {
@@ -80,7 +79,7 @@ namespace WebApi_BestPractices.Controllers
                 return BadRequest("Ids are null");
             }
 
-            var companies = _repository.Company.GetByIds(ids, trackChanges: false);
+            var companies = await _repository.Company.GetByIds(ids, trackChanges: false);
 
             if (ids.Count() != companies.Count())
             {
@@ -94,7 +93,7 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpPost("collection")]
-        public IActionResult CreateCompanyCollection(IEnumerable<CompanyForCreationDto> companyCollection)
+        public async Task<IActionResult> CreateCompanyCollection(IEnumerable<CompanyForCreationDto> companyCollection)
         {
             if (companyCollection is null)
             {
@@ -109,7 +108,7 @@ namespace WebApi_BestPractices.Controllers
                 _repository.Company.CreateCompany(company);
             }
 
-            _repository.Save();
+            await _repository.SaveAsync();
             var companyCollectionToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
 
             // No Header Location support for the list. Thus, creating comma separated
@@ -119,9 +118,9 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCompany(long id)
+        public async Task<IActionResult> DeleteCompany(long id)
         {
-            var company = _repository.Company.GetCompany(id, trackChanges: false);
+            var company = await _repository.Company.GetCompany(id, trackChanges: false);
 
             if (company is null)
             {
@@ -131,13 +130,13 @@ namespace WebApi_BestPractices.Controllers
             }
 
             _repository.Company.DeleteCompany(company);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             return NoContent();
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
+        public async Task<IActionResult> UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
         {
             if (dto is null)
             {
@@ -145,7 +144,7 @@ namespace WebApi_BestPractices.Controllers
                 return BadRequest("Dto is null");
             }
 
-            var company = _repository.Company.GetCompany(id, trackChanges: true);
+            var company = await _repository.Company.GetCompany(id, trackChanges: true);
 
             if (company is null)
             {
@@ -154,7 +153,7 @@ namespace WebApi_BestPractices.Controllers
             }
 
             _mapper.Map(dto, company);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             return NoContent();
         }
