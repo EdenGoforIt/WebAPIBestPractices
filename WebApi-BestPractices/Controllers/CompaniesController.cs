@@ -6,6 +6,7 @@ using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_BestPractices.ActionFilters;
 using WebApi_BestPractices.ModelBinders;
 
 namespace WebApi_BestPractices.Controllers
@@ -51,15 +52,9 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreatecCompany([FromBody] CompanyForCreationDto companyDto)
         {
-            if (companyDto == null)
-            {
-                _logger.LogError("CompanyDto is null");
-
-                return BadRequest("CompanyDto is null");
-            }
-
             var company = _mapper.Map<Company>(companyDto);
 
             _repository.Company.CreateCompany(company);
@@ -136,14 +131,9 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
         {
-            if (dto is null)
-            {
-                _logger.LogError("Dto is null");
-                return BadRequest("Dto is null");
-            }
-
             var company = await _repository.Company.GetCompany(id, trackChanges: true);
 
             if (company is null)
