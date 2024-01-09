@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using System.IO;
+using WebApi_BestPractices.ActionFilters;
 using WebApi_BestPractices.Extensions;
 
 namespace WebApi_BestPractices
@@ -36,6 +37,9 @@ namespace WebApi_BestPractices
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
             }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+
+            services.AddScoped<ValidateCompanyExistsAttribute>();
+            services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

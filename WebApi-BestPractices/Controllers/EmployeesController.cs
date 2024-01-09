@@ -7,6 +7,7 @@ using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_BestPractices.ActionFilters;
 
 namespace WebApi_BestPractices.Controllers
 {
@@ -25,6 +26,7 @@ namespace WebApi_BestPractices.Controllers
 			_mapper = mapper;
 		}
 
+		// TODO: implement CompanyExists filter attribute
 		[HttpGet]
 		public async Task<IActionResult> GetEmployeesForCompany(long companyId)
 		{
@@ -105,25 +107,10 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
 		public async Task<IActionResult> DeleteEmployee(long companyId, long id)
 		{
-			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
-
-			if (company is null)
-			{
-				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
-
-				return NotFound();
-			}
-
-			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
-
-			if (employee is null)
-			{
-				_logger.LogInfo($"Employee with id: ${id} doesn't exist");
-
-				return NotFound();
-			}
+			var employee = HttpContext.Items["employee"] as Employee;
 
 			_repository.Employe.DeleteEmployee(employee);
 			await _repository.SaveAsync();
@@ -133,37 +120,10 @@ namespace WebApi_BestPractices.Controllers
 
 
 		[HttpPut("{id}")]
+		[ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
 		public async Task<IActionResult> UpdateEmployee(long companyId, long id, [FromBody] EmployeeForUpdateDto dto)
 		{
-			if (dto is null)
-			{
-				_logger.LogInfo("Dto is null");
-				return BadRequest("Dto is null");
-			}
-
-			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
-
-			if (company is null)
-			{
-				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
-
-				return NotFound();
-			}
-
-			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
-
-			if (employee is null)
-			{
-				_logger.LogInfo($"Employee with id: ${id} doesn't exist");
-
-				return NotFound();
-			}
-
-			if (!ModelState.IsValid)
-			{
-				_logger.LogError("Invalid model state");
-				return UnprocessableEntity(ModelState);
-			}
+			var employee = HttpContext.Items["employee"] as Employee;
 
 			_mapper.Map(dto, employee);
 			await _repository.SaveAsync();
@@ -172,32 +132,10 @@ namespace WebApi_BestPractices.Controllers
 		}
 
 		[HttpPatch("{id}")]
+		[ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
 		public async Task<IActionResult> UpdateEmployeeForCompany(long companyId, long id, [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDto)
 		{
-			if (patchDto is null)
-			{
-				_logger.LogError("Dto is null");
-				return BadRequest("Dto is null");
-			}
-
-			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
-
-			if (company is null)
-			{
-				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
-
-				return NotFound();
-			}
-
-			var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: true);
-
-			if (employee is null)
-			{
-				_logger.LogInfo($"Company with id: ${companyId} doesn't exist");
-
-				return NotFound();
-			}
-
+			var employee = HttpContext.Items["employee"] as Employee;
 			var employeeDto = _mapper.Map<EmployeeForUpdateDto>(employee);
 
 			// This does data modeling and Model State Binding

@@ -35,6 +35,7 @@ namespace WebApi_BestPractices.Controllers
             return Ok(companiesDto);
         }
 
+        // TODO: implement companyExistAttribute action filter
         [HttpGet("{id}", Name = "CompanyById")]
         public async Task<IActionResult> GetCompany(long id)
         {
@@ -113,9 +114,10 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
         public async Task<IActionResult> DeleteCompany(long id)
         {
-            var company = await _repository.Company.GetCompany(id, trackChanges: false);
+            var company = HttpContext.Items["company"] as Company;
 
             if (company is null)
             {
@@ -132,9 +134,10 @@ namespace WebApi_BestPractices.Controllers
 
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
         public async Task<IActionResult> UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
         {
-            var company = await _repository.Company.GetCompany(id, trackChanges: true);
+            var company = HttpContext.Items["company"] as Company;
 
             if (company is null)
             {
