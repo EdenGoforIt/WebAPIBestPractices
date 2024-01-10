@@ -4,6 +4,7 @@ using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using WebApi_BestPractices.ActionFilters;
@@ -28,7 +29,7 @@ namespace WebApi_BestPractices.Controllers
 		// TODO: implement CompanyExists filter attribute
 		[HttpGet]
 		public async Task<IActionResult> GetEmployeesForCompany(long companyId, [FromQuery] EmployeeParameters employeeParameters)
-		{	
+		{
 			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
