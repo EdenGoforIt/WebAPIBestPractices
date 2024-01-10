@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,8 +27,8 @@ namespace WebApi_BestPractices.Controllers
 
 		// TODO: implement CompanyExists filter attribute
 		[HttpGet]
-		public async Task<IActionResult> GetEmployeesForCompany(long companyId)
-		{
+		public async Task<IActionResult> GetEmployeesForCompany(long companyId, [FromQuery] EmployeeParameters employeeParameters)
+		{	
 			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
@@ -39,7 +38,7 @@ namespace WebApi_BestPractices.Controllers
 				return NotFound();
 			}
 
-			var employees = await _repository.Employe.GetEmployees(companyId, trackChanges: false);
+			var employees = await _repository.Employe.GetEmployees(companyId, employeeParameters, trackChanges: false);
 
 			var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
 
