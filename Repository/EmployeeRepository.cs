@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Contracts;
 using Entities.Models;
@@ -35,8 +33,12 @@ namespace Repository
         {
             var employees = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
                         .OrderBy(e => e.Name)
+                        .Skip(employeeParameters.PageNumber - 1 * employeeParameters.PageSize)
+                        .Take(employeeParameters.PageSize)
                         .ToListAsync();
-            return PagedList<Employee>.ToPagedList(employees, employeeParameters.PageNumber, employeeParameters.PageSize);
+
+            var count = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges: false).CountAsync();
+            return new PagedList<Employee>(employees, employeeParameters.PageNumber, employeeParameters.PageSize, count);
         }
     }
 }
