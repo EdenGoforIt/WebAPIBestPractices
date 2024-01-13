@@ -6,7 +6,7 @@ namespace Repository.Extensions;
 
 public static class RepositoryEmployeeExtensions
 {
-	public static IQueryable<Employee> FilterEmployees(this IQueryable<Employee> employees, uint minAge, uint maxAge)
+	public static IQueryable<Employee> Filter(this IQueryable<Employee> employees, uint minAge, uint maxAge)
 	{
 		return employees.Where(e => e.Age >= minAge && e.Age <= maxAge)
 	}
