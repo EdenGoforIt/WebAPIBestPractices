@@ -15,7 +15,7 @@ public abstract class RequestParameters
 	public uint MinAge { get; set; }
 	public uint MaxAge { get; set; }
 	public bool ValidAge => MaxAge > MinAge;
-
+	public string SearchTerm { get; set; }
 }
 
 public class EmployeeParameters : RequestParameters { }
