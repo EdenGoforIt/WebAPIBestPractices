@@ -7,6 +7,7 @@ using Entities.Models;
 using Entities.RequestFeatures;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebApi_BestPractices.ActionFilters;
 
 namespace WebApi_BestPractices.Controllers
@@ -40,6 +41,8 @@ namespace WebApi_BestPractices.Controllers
 			}
 
 			var employees = await _repository.Employe.GetEmployees(companyId, employeeParameters, trackChanges: false);
+
+			Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(employees.MetaData));
 
 			var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
 

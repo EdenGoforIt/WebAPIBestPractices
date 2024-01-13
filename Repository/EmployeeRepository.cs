@@ -31,13 +31,12 @@ namespace Repository
             return await FindByCondition(e => e.Id.Equals(id) && e.CompanyId.Equals(companyId), trackChanges).SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployees(long companyId, EmployeeParameters employeeParameters, bool trackChanges)
+        public async Task<PagedList<Employee>> GetEmployees(long companyId, EmployeeParameters employeeParameters, bool trackChanges)
         {
-            return await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
+            var employees = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
                         .OrderBy(e => e.Name)
-                        .Skip((employeeParameters.PageNumber - 1) * employeeParameters.PageSize)
-                        .Take(employeeParameters.PageSize)
                         .ToListAsync();
+            return PagedList<Employee>.ToPagedList(employees, employeeParameters.PageNumber, employeeParameters.PageSize);
         }
     }
 }

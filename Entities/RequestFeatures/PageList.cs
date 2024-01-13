@@ -29,3 +29,4 @@ namespace Entities.RequestFeatures
 			return new PagedList<T>(items, count, pageNumber, pageSize);
 		}
 	}
+}
