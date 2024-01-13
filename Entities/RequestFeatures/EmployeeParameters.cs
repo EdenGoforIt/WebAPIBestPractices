@@ -11,6 +11,11 @@ public abstract class RequestParameters
 		get => _pageSize;
 		set => _pageSize = value > maxPageSize ? maxPageSize : value;
 	}
+
+	public uint MinAge { get; set; }
+	public uint MaxAge { get; set; }
+	public bool ValidAge => MaxAge > MinAge;
+
 }
 
 public class EmployeeParameters : RequestParameters { }

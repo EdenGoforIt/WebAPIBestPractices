@@ -31,6 +31,11 @@ namespace WebApi_BestPractices.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetEmployeesForCompany(long companyId, [FromQuery] EmployeeParameters employeeParameters)
 		{
+			if (!employeeParameters.ValidAge)
+			{
+				return BadRequest("Max age can't be less tha min age");
+			}
+
 			var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
 
 			if (company is null)
