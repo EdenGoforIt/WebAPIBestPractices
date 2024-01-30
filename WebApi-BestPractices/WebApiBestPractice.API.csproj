@@ -25,4 +25,7 @@
     <ProjectReference Include="..\LoggerService\LoggerService.csproj"/>
     <ProjectReference Include="..\Repository\Repository.csproj"/>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\RequestParameters.cs" />
+  </ItemGroup>
 </Project>

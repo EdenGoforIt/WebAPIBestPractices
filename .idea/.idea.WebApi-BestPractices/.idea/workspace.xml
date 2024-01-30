@@ -7,14 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/RequestFeatures/EmployeeParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/RequestFeatures/EmployeeParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/Extensions/RepositoryEmployeeExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/Extensions/RepositoryEmployeeExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/Repository.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/Repository.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/CompaniesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/CompaniesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/c:\Logs\internallog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/c:\Logs\internallog.txt" afterDir="false" />
+    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="format from rider">
+      <change afterPath="$PROJECT_DIR$/Entities/RequestFeatures/RequestParameters.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/RequestParameters.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/WebApiBestPractice.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/WebApiBestPractice.API.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +20,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "EdenGoforIt"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="72c82e52-78ed-4042-a846-964235f701f6" />
+        <option name="url" value="https://github.com/EdenGoforIt/WebAPIBestPractices.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/Controllers/CompaniesController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WebApi-BestPractices/Controllers/RequestParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/ModelBinders/ArrayModelBinder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/ModelBinders/ArrayModelBinder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/724c06f1a4ca42c6ac647bd66d3023e8224000/6c/4e5bd52c/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -91,6 +108,15 @@
       <workItem from="1698303242332" duration="12000" />
       <workItem from="1705302376498" duration="136123000" />
     </task>
+    <task id="LOCAL-00001" summary="format from rider">
+      <option name="closed" value="true" />
+      <created>1706638983560</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706638983560</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +136,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="format from rider" />
+    <option name="LAST_COMMIT_MESSAGE" value="format from rider" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -119,10 +147,10 @@
           <line>64</line>
           <properties documentPath="$PROJECT_DIR$/Repository/Extensions/RepositoryEmployeeExtensions.cs" initialLine="63" containingFunctionPresentation="Method 'Sort'">
             <startOffsets>
-              <option value="2096" />
+              <option value="-1" />
             </startOffsets>
             <endOffsets>
-              <option value="2133" />
+              <option value="-1" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
