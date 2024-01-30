@@ -41,15 +41,15 @@ namespace WebApi_BestPractices.Controllers
         {
             var company = await _repository.Company.GetCompany(id, trackChanges: false);
 
-            if (company == null)
-            {
-                _logger.LogInfo($"Company with Id: {id} was not found");
+            if (company != null) return Ok(_mapper.Map<CompanyDto>(company));
 
-                return NotFound(); ;
-            }
+
+            _logger.LogInfo($"Company with Id: {id} was not found");
+
+            return NotFound();
+            ;
 
             return Ok(_mapper.Map<CompanyDto>(company));
-
         }
 
         [HttpPost]
@@ -67,7 +67,9 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpGet("collection/{ids}", Name = "CompanyCollection")]
-        public async Task<IActionResult> GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<long> ids)
+        public async Task<IActionResult> GetCompanyCollection(
+            [ModelBinder(BinderType = typeof(ArrayModelBinder))]
+            IEnumerable<long> ids)
         {
             if (ids is null)
             {
@@ -75,7 +77,7 @@ namespace WebApi_BestPractices.Controllers
                 return BadRequest("Ids are null");
             }
 
-            var companies = await _repository.Company.GetByIds(ids, trackChanges: false);
+            var companies = await _repository.Company.GetByIds(ids, false);
 
             if (ids.Count() != companies.Count())
             {
