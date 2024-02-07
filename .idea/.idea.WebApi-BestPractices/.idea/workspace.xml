@@ -7,10 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="request parameters readded">
+    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/RequestParameters.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/RequestFeatures/RequestParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/RequestFeatures/RequestParameters.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/c:\Logs\internallog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/c:\Logs\internallog.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,12 +21,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "EdenGoforIt"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;EdenGoforIt&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -41,7 +41,7 @@
     <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/EmployeeParameters.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/WebApi-BestPractices/Controllers/RequestParameters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/Entities/RequestFeatures/RequestParameters.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/ModelBinders/ArrayModelBinder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/ModelBinders/ArrayModelBinder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/724c06f1a4ca42c6ac647bd66d3023e8224000/6c/4e5bd52c/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
@@ -54,36 +54,39 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2XI4Pyjcrhv1x9DvcdNlRRdToTq" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.WebApiBestPractice.API: WebApi_BestPractices.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.WebApiBestPractice.API: WebApi_BestPractices.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "GitIgnore"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;GitIgnore&quot;
     ],
-    "rider.external.source.directories": [
-      "/Users/edenpark/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/Users/edenpark/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/Users/edenpark/.local/share/Symbols/src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/edenpark/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/edenpark/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/edenpark/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="WebApiBestPractice.API: WebApi_BestPractices" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/WebApi-BestPractices/WebApiBestPractice.API.csproj" />
@@ -111,6 +114,7 @@
       <updated>1698303241232</updated>
       <workItem from="1698303242332" duration="12000" />
       <workItem from="1705302376498" duration="136123000" />
+      <workItem from="1707286420613" duration="1231000" />
     </task>
     <task id="LOCAL-00001" summary="format from rider">
       <option name="closed" value="true" />
@@ -150,7 +154,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="format from rider" />
     <MESSAGE value="request parameters readded" />
-    <option name="LAST_COMMIT_MESSAGE" value="request parameters readded" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

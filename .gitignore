@@ -365,3 +365,7 @@ FodyWeavers.xsd
 # Log files
 WebApi-BestPractices/c:/Logs/** 
 WebApi-BestPractices/c:/Logs/internallog.txt
+
+## IDE files
+.idea/**
+workspace.xml
