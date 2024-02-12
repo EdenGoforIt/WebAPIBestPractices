@@ -21,7 +21,8 @@ public class DataShaper<T> : IDataShaper<T> where T : class
 
     public ExpandoObject ShapeData(T entity, string fieldsString)
     {
-        throw new System.NotImplementedException();
+        var requiredProperties = GetRequiredProperties(fieldsString);
+        return FetchDataForEntity(entity, requiredProperties);
     }
 
     private IEnumerable<PropertyInfo> GetRequiredProperties(string fieldsString)
@@ -54,6 +55,27 @@ public class DataShaper<T> : IDataShaper<T> where T : class
 
     private IEnumerable<ExpandoObject> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
     {
-        
+        var shapedData = new List<ExpandoObject>();
+
+        foreach (var entity in entities)
+        {
+            var shapedObject = FetchDataForEntity(entity, requiredProperties);
+            shapedData.Add(shapedObject);
+        }
+
+        return shapedData;
+    }
+
+    private ExpandoObject FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
+    {
+        var shapedObject = new ExpandoObject();
+
+        foreach (var property in requiredProperties)
+        {
+            var objectPropertyValue = property.GetValue(entity);
+            shapedObject.TryAdd(property.Name, objectPropertyValue);
+        }
+
+        return shapedObject;
     }
 }
