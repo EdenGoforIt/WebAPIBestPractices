@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using System.IO;
+using Entities.DataTransferObjects;
+using Repository.DataShaping;
 using WebApi_BestPractices.ActionFilters;
 using WebApi_BestPractices.Extensions;
 
@@ -40,6 +42,7 @@ namespace WebApi_BestPractices
 
             services.AddScoped<ValidateCompanyExistsAttribute>();
             services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
+            services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
