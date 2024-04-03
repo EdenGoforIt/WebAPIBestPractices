@@ -9,148 +9,140 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi_BestPractices.ActionFilters;
 using WebApi_BestPractices.ModelBinders;
 
-namespace WebApi_BestPractices.Controllers
+namespace WebApi_BestPractices.Controllers;
+
+[Route("api/companies")]
+[ApiController]
+public class CompaniesController : ControllerBase
 {
-    [Route("api/companies")]
-    [ApiController]
-    public class CompaniesController : ControllerBase
+    private readonly ILoggerManager _logger;
+    private readonly IMapper _mapper;
+    private readonly IRepositoryManager _repository;
+
+    public CompaniesController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
     {
-        private readonly IRepositoryManager _repository;
-        private readonly ILoggerManager _logger;
-        private readonly IMapper _mapper;
+        _repository = repository;
+        _logger = logger;
+        _mapper = mapper;
+    }
 
-        public CompaniesController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+    [HttpGet]
+    public async Task<IActionResult> GetCompanies()
+    {
+        var companies = await _repository.Company.GetAllCompanies(false);
+        var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+
+        return Ok(companiesDto);
+    }
+
+    // TODO: implement companyExistAttribute action filter
+    [HttpGet("{id}", Name = "CompanyById")]
+    public async Task<IActionResult> GetCompany(long id)
+    {
+        var company = await _repository.Company.GetCompany(id, false);
+
+        if (company != null) return Ok(_mapper.Map<CompanyDto>(company));
+
+        _logger.LogInfo($"Company with Id: {id} was not found");
+
+        return NotFound();
+    }
+
+    [HttpPost]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
+    public async Task<IActionResult> CreatecCompany([FromBody] CompanyForCreationDto companyDto)
+    {
+        var company = _mapper.Map<Company>(companyDto);
+
+        _repository.Company.CreateCompany(company);
+        await _repository.SaveAsync();
+
+        var companyToReturn = _mapper.Map<CompanyDto>(company);
+
+        return CreatedAtRoute("CompanyById", new { companyToReturn.Id }, companyToReturn);
+    }
+
+    [HttpGet("collection/{ids}", Name = "CompanyCollection")]
+    public async Task<IActionResult> GetCompanyCollection(
+        [ModelBinder(BinderType = typeof(ArrayModelBinder))]
+        IEnumerable<long> ids)
+    {
+        if (ids is null)
         {
-            _repository = repository;
-            _logger = logger;
-            _mapper = mapper;
+            _logger.LogError("Ids are null");
+            return BadRequest("Ids are null");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCompanies()
-        {
-            var companies = await _repository.Company.GetAllCompanies(trackChanges: false);
-            var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+        var companies = await _repository.Company.GetByIds(ids, false);
 
-            return Ok(companiesDto);
+        if (ids.Count() != companies.Count())
+        {
+            _logger.LogError("Some Ids are not valid in the collection");
+            return BadRequest("Some Ids are not valid in the collection");
         }
 
-        // TODO: implement companyExistAttribute action filter
-        [HttpGet("{id}", Name = "CompanyById")]
-        public async Task<IActionResult> GetCompany(long id)
+        var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+
+        return Ok(companiesToReturn);
+    }
+
+    [HttpPost("collection")]
+    public async Task<IActionResult> CreateCompanyCollection(IEnumerable<CompanyForCreationDto> companyCollection)
+    {
+        if (companyCollection is null)
         {
-            var company = await _repository.Company.GetCompany(id, trackChanges: false);
+            _logger.LogError("Company Collection is null");
+            return BadRequest("Company Collection is null");
+        }
 
-            if (company != null) return Ok(_mapper.Map<CompanyDto>(company));
+        var companyEntities = _mapper.Map<IEnumerable<Company>>(companyCollection);
 
+        foreach (var company in companyEntities) _repository.Company.CreateCompany(company);
 
-            _logger.LogInfo($"Company with Id: {id} was not found");
+        await _repository.SaveAsync();
+        var companyCollectionToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
+
+        // No Header Location support for the list. Thus, creating comma separated
+        var ids = string.Join(", ", companyCollectionToReturn.Select(c => c.Id));
+
+        return CreatedAtRoute("CompanyCollection", new { ids }, companyCollectionToReturn);
+    }
+
+    [HttpDelete("{id}")]
+    [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
+    public async Task<IActionResult> DeleteCompany(long id)
+    {
+        var company = HttpContext.Items["company"] as Company;
+
+        if (company is null)
+        {
+            _logger.LogInfo($"Company with id: ${id} doesn't exist");
 
             return NotFound();
-            ;
-
-            return Ok(_mapper.Map<CompanyDto>(company));
         }
 
-        [HttpPost]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> CreatecCompany([FromBody] CompanyForCreationDto companyDto)
+        _repository.Company.DeleteCompany(company);
+        await _repository.SaveAsync();
+
+        return NoContent();
+    }
+
+    [HttpPut("{id}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
+    public async Task<IActionResult> UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
+    {
+        var company = HttpContext.Items["company"] as Company;
+
+        if (company is null)
         {
-            var company = _mapper.Map<Company>(companyDto);
-
-            _repository.Company.CreateCompany(company);
-            await _repository.SaveAsync();
-
-            var companyToReturn = _mapper.Map<CompanyDto>(company);
-
-            return CreatedAtRoute("CompanyById", new { companyToReturn.Id }, companyToReturn);
+            _logger.LogError("Company was not found");
+            return NotFound("Company was not found");
         }
 
-        [HttpGet("collection/{ids}", Name = "CompanyCollection")]
-        public async Task<IActionResult> GetCompanyCollection(
-            [ModelBinder(BinderType = typeof(ArrayModelBinder))]
-            IEnumerable<long> ids)
-        {
-            if (ids is null)
-            {
-                _logger.LogError("Ids are null");
-                return BadRequest("Ids are null");
-            }
+        _mapper.Map(dto, company);
+        await _repository.SaveAsync();
 
-            var companies = await _repository.Company.GetByIds(ids, false);
-
-            if (ids.Count() != companies.Count())
-            {
-                _logger.LogError("Some Ids are not valid in the collection");
-                return BadRequest("Some Ids are not valid in the collection");
-            }
-
-            var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
-
-            return Ok(companiesToReturn);
-        }
-
-        [HttpPost("collection")]
-        public async Task<IActionResult> CreateCompanyCollection(IEnumerable<CompanyForCreationDto> companyCollection)
-        {
-            if (companyCollection is null)
-            {
-                _logger.LogError("Company Collection is null");
-                return BadRequest("Company Collection is null");
-            }
-
-            var companyEntities = _mapper.Map<IEnumerable<Company>>(companyCollection);
-
-            foreach (var company in companyEntities)
-            {
-                _repository.Company.CreateCompany(company);
-            }
-
-            await _repository.SaveAsync();
-            var companyCollectionToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
-
-            // No Header Location support for the list. Thus, creating comma separated
-            var ids = string.Join(", ", companyCollectionToReturn.Select(c => c.Id));
-
-            return CreatedAtRoute("CompanyCollection", new { ids }, companyCollectionToReturn);
-        }
-
-        [HttpDelete("{id}")]
-        [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
-        public async Task<IActionResult> DeleteCompany(long id)
-        {
-            var company = HttpContext.Items["company"] as Company;
-
-            if (company is null)
-            {
-                _logger.LogInfo($"Company with id: ${id} doesn't exist");
-
-                return NotFound();
-            }
-
-            _repository.Company.DeleteCompany(company);
-            await _repository.SaveAsync();
-
-            return NoContent();
-        }
-
-        [HttpPut("{id}")]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
-        [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
-        public async Task<IActionResult> UpdateCompany(long id, [FromBody] CompanyForUpdateDto dto)
-        {
-            var company = HttpContext.Items["company"] as Company;
-
-            if (company is null)
-            {
-                _logger.LogError("Company was not found");
-                return NotFound("Company was not found");
-            }
-
-            _mapper.Map(dto, company);
-            await _repository.SaveAsync();
-
-            return NoContent();
-        }
+        return NoContent();
     }
 }
