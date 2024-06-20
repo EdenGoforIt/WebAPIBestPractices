@@ -12,8 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/LinkModels/Link.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/LinkModels/Link.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/CompaniesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/CompaniesController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +113,8 @@
       <workItem from="1707289628091" duration="7218000" />
       <workItem from="1708369128234" duration="284000" />
       <workItem from="1708541498496" duration="3188000" />
-      <workItem from="1712127870500" duration="833000" />
+      <workItem from="1712127870500" duration="2441000" />
+      <workItem from="1718785915369" duration="1911000" />
     </task>
     <task id="LOCAL-00001" summary="format from rider">
       <option name="closed" value="true" />
@@ -133,7 +132,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706639669376</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="XML and link model">
+      <option name="closed" value="true" />
+      <created>1712128736802</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712128736802</updated>
+    </task>
+    <task id="LOCAL-00004" summary="link resource base">
+      <option name="closed" value="true" />
+      <created>1712128773927</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712128773927</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +178,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="format from rider" />
     <MESSAGE value="request parameters readded" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="XML and link model" />
+    <MESSAGE value="link resource base" />
+    <option name="LAST_COMMIT_MESSAGE" value="link resource base" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
