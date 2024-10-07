@@ -12,6 +12,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/DataShaping/DataShaper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/DataShaping/DataShaper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Extensions/ServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Extensions/ServiceExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +39,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/Controllers/CompaniesController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/37f8ea815f3949019056ceff1060e6884a1600/6b/90b00d03/ExpandoObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/724c06f1a4ca42c6ac647bd66d3023e8224000/6c/4e5bd52c/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -115,6 +118,9 @@
       <workItem from="1708541498496" duration="3188000" />
       <workItem from="1712127870500" duration="2441000" />
       <workItem from="1718785915369" duration="1911000" />
+      <workItem from="1718872463022" duration="2487000" />
+      <workItem from="1719305766574" duration="1230000" />
+      <workItem from="1728284957872" duration="1394000" />
     </task>
     <task id="LOCAL-00001" summary="format from rider">
       <option name="closed" value="true" />

@@ -39,6 +39,7 @@ namespace WebApi_BestPractices
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
             }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+            services.AddCustomMediaType();
 
             services.AddScoped<ValidateCompanyExistsAttribute>();
             services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
@@ -70,11 +71,7 @@ namespace WebApi_BestPractices
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-
     }
 }
