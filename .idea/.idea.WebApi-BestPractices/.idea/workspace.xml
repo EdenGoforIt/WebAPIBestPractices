@@ -10,9 +10,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,6 +117,7 @@
       <workItem from="1719305766574" duration="1230000" />
       <workItem from="1728284957872" duration="3060000" />
       <workItem from="1730750593354" duration="2782000" />
+      <workItem from="1736843644546" duration="462000" />
     </task>
     <task id="LOCAL-00001" summary="format from rider">
       <option name="closed" value="true" />

@@ -32,6 +32,7 @@ namespace WebApi_BestPractices.Controllers
 
         // TODO: implement CompanyExists filter attribute
         [HttpGet]
+        [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task<IActionResult> GetEmployeesForCompany(long companyId,
             [FromQuery] EmployeeParameters employeeParameters)
         {
