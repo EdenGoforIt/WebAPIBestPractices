@@ -10,7 +10,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="" />
+    <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/Contracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/Contracts.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/LinkModels/LinkCollectionWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/LinkModels/LinkCollectionWrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/LinkModels/LinkResourceBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/LinkModels/LinkResourceBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/EmployeesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/EmployeesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Utility/EmployeeLinks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Utility/EmployeeLinks.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,8 +41,13 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/37f8ea815f3949019056ceff1060e6884a1600/6b/90b00d03/ExpandoObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/724c06f1a4ca42c6ac647bd66d3023e8224000/6c/4e5bd52c/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/975bf429da2a47c2b8081c008d18db0b40600/15/7499416c/KeyValueMapper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c7ac64f3aae64df2bbf33103156b9c38a800/ca/a9be0057/LinkGenerator.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -118,6 +130,7 @@
       <workItem from="1728284957872" duration="3060000" />
       <workItem from="1730750593354" duration="2782000" />
       <workItem from="1736843644546" duration="462000" />
+      <workItem from="1737016981517" duration="684000" />
     </task>
     <task id="LOCAL-00001" summary="format from rider">
       <option name="closed" value="true" />

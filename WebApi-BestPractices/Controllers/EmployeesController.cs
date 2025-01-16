@@ -111,7 +111,7 @@ namespace WebApi_BestPractices.Controllers
 			return CreatedAtRoute("EmployeeById", new { companyId, employeeToReturn.Id }, employeeToReturn);
 		}
 
-		[HttpDelete("{id}")]
+		[HttpDelete("{id}", Name="DeleteEmployeeForCompany")]
 		[ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
 		public async Task<IActionResult> DeleteEmployee(long companyId, long id)
 		{
