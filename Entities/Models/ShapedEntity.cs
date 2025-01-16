@@ -1,9 +1,13 @@
 using System;
-
-namespace Entities.Models;
-
-public class ShapedEntity
+namespace Entities.Models
 {
-    public Guid Id { get; set; }
-    public Entity Entity { get; set; } = new();
+    public class ShapedEntity
+    {
+        public ShapedEntity()
+        {
+            Entity = new Entity();
+        }
+        public Guid Id { get; set; }
+        public Entity Entity { get; set; }
+    }
 }
