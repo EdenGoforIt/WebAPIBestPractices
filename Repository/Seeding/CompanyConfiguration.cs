@@ -24,7 +24,6 @@ namespace Repository.Seeding
                     Country = "USA"
                 }
             );
-
         }
     }
 }

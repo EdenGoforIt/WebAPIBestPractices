@@ -124,14 +124,8 @@ public class Entity : DynamicObject, IXmlSerializable, IDictionary<string, objec
 
     public object this[string key]
     {
-        get
-        {
-            return _expando[key];
-        }
-        set
-        {
-            _expando[key] = value;
-        }
+        get { return _expando[key]; }
+        set { _expando[key] = value; }
     }
 
     public void Add(KeyValuePair<string, object> item)

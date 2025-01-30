@@ -12,11 +12,48 @@
   <component name="ChangeListManager">
     <list default="true" id="a1502a98-1a14-491c-b2b4-75b577560d7a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi-BestPractices/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contracts/Contracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/Contracts.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/ICompanyRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/ICompanyRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/IDataShaper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/IDataShaper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/IEmployeeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/IEmployeeRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/ILoggerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/ILoggerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/IRepositoryBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/IRepositoryBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/IRepositoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/IRepositoryManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/CompanyDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/CompanyDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/CompanyForCreationDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/CompanyForCreationDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/CompanyForUpdateDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/CompanyForUpdateDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeForCreationDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeForCreationDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeForManipulationDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeForManipulationDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeForUpdateDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/EmployeeForUpdateDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/ErrorModel/ErrorDetail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/ErrorModel/ErrorDetail.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entities/LinkModels/LinkCollectionWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/LinkModels/LinkCollectionWrapper.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entities/LinkModels/LinkResourceBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/LinkModels/LinkResourceBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Models/Company.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Models/Company.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Models/Employee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Models/Employee.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Models/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Models/Entity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Models/ShapedEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Models/ShapedEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/RepositoryContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/RepositoryContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/RequestFeatures/MetaData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/RequestFeatures/MetaData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/RequestFeatures/PageList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/RequestFeatures/PageList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoggerService/LoggerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LoggerService/LoggerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/CompanyRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/CompanyRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/EmployeeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/EmployeeRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/Extensions/OrderQueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/Extensions/OrderQueryBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/RepositoryBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/RepositoryBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/RepositoryContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/RepositoryContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/RepositoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/RepositoryManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/Seeding/CompanyConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/Seeding/CompanyConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/ActionFilters/ValidateCompanyExistsAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/ActionFilters/ValidateCompanyExistsAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/ActionFilters/ValidateEmployeeForCompanyExistsAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/ActionFilters/ValidateEmployeeForCompanyExistsAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/BaseApiController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/BaseApiController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/EmployeesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Controllers/EmployeesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Extensions/ExceptionMiddlewareExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Extensions/ExceptionMiddlewareExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Mappers/CompanyProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Mappers/CompanyProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/ModelBinders/ArrayModelBinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/ModelBinders/ArrayModelBinder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Startup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/Utility/EmployeeLinks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/Utility/EmployeeLinks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi-BestPractices/nlog.config" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi-BestPractices/nlog.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +78,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/Utility/EmployeeLinks.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/Utility/EmployeeLinks.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/edenpark/Desktop/Personal Project/WebAPIBestPractices/WebApi-BestPractices/Utility/EmployeeLinks.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/37f8ea815f3949019056ceff1060e6884a1600/6b/90b00d03/ExpandoObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/724c06f1a4ca42c6ac647bd66d3023e8224000/6c/4e5bd52c/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/975bf429da2a47c2b8081c008d18db0b40600/15/7499416c/KeyValueMapper.cs" root0="SKIP_HIGHLIGHTING" />
@@ -130,7 +167,8 @@
       <workItem from="1728284957872" duration="3060000" />
       <workItem from="1730750593354" duration="2782000" />
       <workItem from="1736843644546" duration="462000" />
-      <workItem from="1737016981517" duration="684000" />
+      <workItem from="1737016981517" duration="875000" />
+      <workItem from="1738179383568" duration="3399000" />
     </task>
     <task id="LOCAL-00001" summary="format from rider">
       <option name="closed" value="true" />
@@ -164,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712128773927</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="finish adding links">
+      <option name="closed" value="true" />
+      <created>1737017853129</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737017853129</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +242,8 @@
     <MESSAGE value="request parameters readded" />
     <MESSAGE value="XML and link model" />
     <MESSAGE value="link resource base" />
-    <option name="LAST_COMMIT_MESSAGE" value="link resource base" />
+    <MESSAGE value="finish adding links" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish adding links" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

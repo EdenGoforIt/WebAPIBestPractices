@@ -27,22 +27,25 @@ namespace Repository
 
         public async Task<Employee> GetEmployee(long companyId, long id, bool trackChanges)
         {
-            return await FindByCondition(e => e.Id.Equals(id) && e.CompanyId.Equals(companyId), trackChanges).SingleOrDefaultAsync();
+            return await FindByCondition(e => e.Id.Equals(id) && e.CompanyId.Equals(companyId), trackChanges)
+                .SingleOrDefaultAsync();
         }
 
-        public async Task<PagedList<Employee>> GetEmployees(long companyId, EmployeeParameters employeeParameters, bool trackChanges)
+        public async Task<PagedList<Employee>> GetEmployees(long companyId, EmployeeParameters employeeParameters,
+            bool trackChanges)
         {
             var employees = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges: false)
-                        .Filter(employeeParameters.MinAge, employeeParameters.MaxAge)
-                        .Search(employeeParameters.SearchTerm)
-                        .Sort(employeeParameters.OrderBy)
-                        .OrderBy(e => e.Name)
-                        .Skip(employeeParameters.PageNumber - 1 * employeeParameters.PageSize)
-                        .Take(employeeParameters.PageSize)
-                        .ToListAsync();
+                .Filter(employeeParameters.MinAge, employeeParameters.MaxAge)
+                .Search(employeeParameters.SearchTerm)
+                .Sort(employeeParameters.OrderBy)
+                .OrderBy(e => e.Name)
+                .Skip(employeeParameters.PageNumber - 1 * employeeParameters.PageSize)
+                .Take(employeeParameters.PageSize)
+                .ToListAsync();
 
             var count = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges: false).CountAsync();
-            return new PagedList<Employee>(employees, employeeParameters.PageNumber, employeeParameters.PageSize, count);
+            return new PagedList<Employee>(employees, employeeParameters.PageNumber, employeeParameters.PageSize,
+                count);
         }
     }
 }

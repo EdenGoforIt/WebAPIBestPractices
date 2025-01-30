@@ -1,4 +1,5 @@
 using System;
+
 namespace Entities.Models
 {
     public class ShapedEntity
@@ -7,6 +8,7 @@ namespace Entities.Models
         {
             Entity = new Entity();
         }
+
         public Guid Id { get; set; }
         public Entity Entity { get; set; }
     }

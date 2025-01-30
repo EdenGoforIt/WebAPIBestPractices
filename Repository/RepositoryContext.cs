@@ -10,6 +10,7 @@ namespace Repository
             : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // modelBuilder.ApplyConfiguration(new CompanyConfiguration());
@@ -17,6 +18,5 @@ namespace Repository
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
     }
 }

@@ -14,4 +14,3 @@ namespace Contracts
         void DeleteCompany(Company company);
     }
 }
-

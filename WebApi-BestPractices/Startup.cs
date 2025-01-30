@@ -13,67 +13,67 @@ using Service.DataShaping;
 
 namespace WebApi_BestPractices
 {
-	public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			LogManager.Setup().LoadConfigurationFromFile(Path.Combine(Directory.GetCurrentDirectory(), "nlog.config"));
-			Configuration = configuration;
-		}
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            LogManager.Setup().LoadConfigurationFromFile(Path.Combine(Directory.GetCurrentDirectory(), "nlog.config"));
+            Configuration = configuration;
+        }
 
-		public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddConfigureCors();
-			services.ConfigureLoggerService();
-			services.ConfigureSqlContext(Configuration);
-			services.ConfigureLoggerService();
-			services.ConfigureRepositoryManager();
-			services.AddControllers();
-			services.AddAutoMapper(typeof(Startup));
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddConfigureCors();
+            services.ConfigureLoggerService();
+            services.ConfigureSqlContext(Configuration);
+            services.ConfigureLoggerService();
+            services.ConfigureRepositoryManager();
+            services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
 
-			services.AddControllers(config =>
-			{
-				config.RespectBrowserAcceptHeader = true;
-				config.ReturnHttpNotAcceptable = true;
-			}).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
-			services.AddCustomMediaType();
+            services.AddControllers(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+                config.ReturnHttpNotAcceptable = true;
+            }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+            services.AddCustomMediaType();
 
-			services.AddScoped<ValidateCompanyExistsAttribute>();
-			services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
-			services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
+            services.AddScoped<ValidateCompanyExistsAttribute>();
+            services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
+            services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
 
-			services.AddScoped<ValidateMediaTypeAttribute>();
-		}
+            services.AddScoped<ValidateMediaTypeAttribute>();
+        }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-			app.ConfigureExceptionHandler(logger);
+            app.ConfigureExceptionHandler(logger);
 
-			app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-			app.UseStaticFiles();
+            app.UseStaticFiles();
 
-			app.UseForwardedHeaders(new ForwardedHeadersOptions
-			{
-				ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
-			});
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
+            });
 
-			app.UseHsts();
+            app.UseHsts();
 
-			app.UseRouting();
+            app.UseRouting();
 
-			app.UseAuthorization();
+            app.UseAuthorization();
 
-			app.UseEndpoints(endpoints => endpoints.MapControllers());
-		}
-	}
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+        }
+    }
 }

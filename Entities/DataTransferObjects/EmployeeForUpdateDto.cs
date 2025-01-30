@@ -1,6 +1,6 @@
 namespace Entities.DataTransferObjects
 {
-	public class EmployeeForUpdateDto : EmployeeForManipulationDto
-	{
-	}
+    public class EmployeeForUpdateDto : EmployeeForManipulationDto
+    {
+    }
 }

@@ -36,7 +36,8 @@ namespace Repository
 
         public async Task<Company> GetCompany(long id, bool trackChanges)
         {
-            return await FindByCondition(x => x.Id.Equals(id), trackChanges).Include(x => x.Employees).SingleOrDefaultAsync();
+            return await FindByCondition(x => x.Id.Equals(id), trackChanges).Include(x => x.Employees)
+                .SingleOrDefaultAsync();
         }
     }
 }
