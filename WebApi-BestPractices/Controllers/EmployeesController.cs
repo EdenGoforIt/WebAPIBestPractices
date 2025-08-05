@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebApi_BestPractices.ActionFilters;
+using WebApi_BestPractices.Utility;
 
 namespace WebApi_BestPractices.Controllers
 {
@@ -19,21 +20,25 @@ namespace WebApi_BestPractices.Controllers
         ILoggerManager logger,
         IMapper mapper,
         IDataShaper<EmployeeDto> dataShaper,
-        IEmployeeLinks employeeLinks) : ControllerBase
+        IEmployeeLinks employeeLinks
+    ) : ControllerBase
     {
         private readonly IRepositoryManager _repository = repository;
         private readonly ILoggerManager _logger = logger;
         private readonly IMapper _mapper = mapper;
         private readonly IDataShaper<EmployeeDto> _dataShaper = dataShaper;
+        private readonly IEmployeeLinks _employeeLinks = employeeLinks;
 
         // TODO: implement CompanyExists filter attribute
         [HttpGet]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
-        public async Task<IActionResult> GetEmployeesForCompany(long companyId,
-            [FromQuery] EmployeeParameters employeeParameters)
+        public async Task<IActionResult> GetEmployeesForCompany(
+            long companyId,
+            [FromQuery] EmployeeParameters employeeParameters
+        )
         {
             if (!employeeParameters.ValidAge)
-            {   
+            {
                 return BadRequest("Max age can't be less tha min age");
             }
 
@@ -46,13 +51,24 @@ namespace WebApi_BestPractices.Controllers
                 return NotFound();
             }
 
-            var employees = await _repository.Employe.GetEmployees(companyId, employeeParameters, trackChanges: false);
+            var employees = await _repository.Employe.GetEmployees(
+                companyId,
+                employeeParameters,
+                trackChanges: false
+            );
 
-            Response.Headers.TryAdd("X-Pagination", JsonConvert.SerializeObject(employees.MetaData));
+            Response.Headers.TryAdd(
+                "X-Pagination",
+                JsonConvert.SerializeObject(employees.MetaData)
+            );
 
             var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
-            var links = employeeLinks.TryGenerateLinks(employeesDto,
-                employeeParameters.Fields, companyId, HttpContext);
+            var links = employeeLinks.TryGenerateLinks(
+                employeesDto,
+                employeeParameters.Fields,
+                companyId,
+                HttpContext
+            );
             return links.HasLinks ? Ok(links.LinkedEntities) : Ok(links.ShapedEntities);
         }
 
@@ -68,7 +84,11 @@ namespace WebApi_BestPractices.Controllers
                 return NotFound();
             }
 
-            var employee = await _repository.Employe.GetEmployee(companyId, id, trackChanges: false);
+            var employee = await _repository.Employe.GetEmployee(
+                companyId,
+                id,
+                trackChanges: false
+            );
 
             if (employee is null)
             {
@@ -83,7 +103,10 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEmployee(long companyId, [FromBody] EmployeeForCreationDto employeeDto)
+        public async Task<IActionResult> CreateEmployee(
+            long companyId,
+            [FromBody] EmployeeForCreationDto employeeDto
+        )
         {
             if (employeeDto is null)
             {
@@ -113,7 +136,11 @@ namespace WebApi_BestPractices.Controllers
 
             var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
 
-            return CreatedAtRoute("EmployeeById", new { companyId, employeeToReturn.Id }, employeeToReturn);
+            return CreatedAtRoute(
+                "EmployeeById",
+                new { companyId, employeeToReturn.Id },
+                employeeToReturn
+            );
         }
 
         [HttpDelete("{id}", Name = "DeleteEmployeeForCompany")]
@@ -128,10 +155,13 @@ namespace WebApi_BestPractices.Controllers
             return NoContent();
         }
 
-
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
-        public async Task<IActionResult> UpdateEmployee(long companyId, long id, [FromBody] EmployeeForUpdateDto dto)
+        public async Task<IActionResult> UpdateEmployee(
+            long companyId,
+            long id,
+            [FromBody] EmployeeForUpdateDto dto
+        )
         {
             var employee = HttpContext.Items["employee"] as Employee;
 
@@ -143,8 +173,11 @@ namespace WebApi_BestPractices.Controllers
 
         [HttpPatch("{id}")]
         [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
-        public async Task<IActionResult> UpdateEmployeeForCompany(long companyId, long id,
-            [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDto)
+        public async Task<IActionResult> UpdateEmployeeForCompany(
+            long companyId,
+            long id,
+            [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDto
+        )
         {
             var employee = HttpContext.Items["employee"] as Employee;
             var employeeDto = _mapper.Map<EmployeeForUpdateDto>(employee);
