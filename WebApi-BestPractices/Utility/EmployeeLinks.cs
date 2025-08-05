@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
+using System.Linq;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.LinkModels;
-using System.Linq;
 using Entities.Models;
-using Repository;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace WebApi_BestPractices.Utility;
 
@@ -24,14 +22,24 @@ public class EmployeeLinks
         _dataShaper = dataShaper;
     }
 
-    public LinkResponse TryGenerateLinks(IEnumerable<EmployeeDto> employeesDto, string fields, Guid companyId,
-        HttpContext httpContext)
+    public LinkResponse TryGenerateLinks(
+        IEnumerable<EmployeeDto> employeesDto,
+        string fields,
+        Guid companyId,
+        HttpContext httpContext
+    )
     {
         var shapedEmployees = ShapeData(employeesDto, fields);
 
         if (ShouldGenerateLinks(httpContext))
         {
-            return ReturnLinkedEmployees(employeesDto, fields, companyId, httpContext, shapedEmployees);
+            return ReturnLinkedEmployees(
+                employeesDto,
+                fields,
+                companyId,
+                httpContext,
+                shapedEmployees
+            );
         }
 
         return ReturnShapedEmployees(shapedEmployees);
@@ -39,9 +47,7 @@ public class EmployeeLinks
 
     private List<Entity> ShapeData(IEnumerable<EmployeeDto> employeesDto, string fields)
     {
-        return _dataShaper.ShapeData(employeesDto, fields)
-            .Select(e => e.Entity)
-            .ToList();
+        return _dataShaper.ShapeData(employeesDto, fields).Select(e => e.Entity).ToList();
     }
 
     private static LinkResponse ReturnShapedEmployees(List<Entity> shapedEmployees)
@@ -49,14 +55,24 @@ public class EmployeeLinks
         return new LinkResponse { ShapedEntities = shapedEmployees };
     }
 
-    private LinkResponse ReturnLinkedEmployees(IEnumerable<EmployeeDto> employeesDto, string fields, Guid companyId,
-        HttpContext httpContext, List<Entity> shapedEmployees)
+    private LinkResponse ReturnLinkedEmployees(
+        IEnumerable<EmployeeDto> employeesDto,
+        string fields,
+        Guid companyId,
+        HttpContext httpContext,
+        List<Entity> shapedEmployees
+    )
     {
         var employeeDtoList = employeesDto.ToList();
 
         for (var index = 0; index < employeeDtoList.Count; index++)
         {
-            var employeeLinks = CreateLinksForEmployee(httpContext, companyId, employeeDtoList[index].Id, fields);
+            var employeeLinks = CreateLinksForEmployee(
+                httpContext,
+                companyId,
+                employeeDtoList[index].Id,
+                fields
+            );
             shapedEmployees.ElementAt(index).Add("Links", employeeLinks);
         }
 
@@ -67,26 +83,75 @@ public class EmployeeLinks
         return new LinkResponse { HasLinks = true, LinkedEntities = linkedEmployees };
     }
 
-    private List<Link> CreateLinksForEmployee(HttpContext httpContext, Guid companyId, long id, string fields = "")
+    private LinkCollectionWrapper<Entity> CreateLinksForEmployees(
+        HttpContext httpcontext,
+        LinkCollectionWrapper<Entity> employeesWrapper
+    )
+    {
+        employeesWrapper.Links.Add(
+            new Link(
+                _linkGenerator.GetUriByAction(
+                    httpcontext,
+                    "GetEmployeesForCompany",
+                    values: new { }
+                ),
+                "self",
+                "GET"
+            )
+        );
+        return employeesWrapper;
+    }
+
+    private List<Link> CreateLinksForEmployee(
+        HttpContext httpContext,
+        Guid companyId,
+        long id,
+        string fields = ""
+    )
     {
         var links = new List<Link>
         {
-            new Link(_linkGenerator.GetUriByAction(httpContext, "GetEmployeeForCompany",
-                    values: new { companyId, id, fields }),
+            new Link(
+                _linkGenerator.GetUriByAction(
+                    httpContext,
+                    "GetEmployeeForCompany",
+                    values: new
+                    {
+                        companyId,
+                        id,
+                        fields,
+                    }
+                ),
                 "self",
-                "GET"),
-            new Link(_linkGenerator.GetUriByAction(httpContext,
-                    "DeleteEmployeeForCompany", values: new { companyId, id }),
+                "GET"
+            ),
+            new Link(
+                _linkGenerator.GetUriByAction(
+                    httpContext,
+                    "DeleteEmployeeForCompany",
+                    values: new { companyId, id }
+                ),
                 "delete_employee",
-                "DELETE"),
-            new Link(_linkGenerator.GetUriByAction(httpContext,
-                    "UpdateEmployeeForCompany", values: new { companyId, id }),
+                "DELETE"
+            ),
+            new Link(
+                _linkGenerator.GetUriByAction(
+                    httpContext,
+                    "UpdateEmployeeForCompany",
+                    values: new { companyId, id }
+                ),
                 "update_employee",
-                "PUT"),
-            new Link(_linkGenerator.GetUriByAction(httpContext,
-                    "PartiallyUpdateEmployeeForCompany", values: new { companyId, id }),
+                "PUT"
+            ),
+            new Link(
+                _linkGenerator.GetUriByAction(
+                    httpContext,
+                    "PartiallyUpdateEmployeeForCompany",
+                    values: new { companyId, id }
+                ),
                 "partially_update_employee",
-                "PATCH")
+                "PATCH"
+            ),
         };
         return links;
     }
@@ -96,15 +161,5 @@ public class EmployeeLinks
         var mediaType = (MediaTypeHeaderValue)httpContext.Items["AcceptHeaderMediaType"];
 
         return mediaType.MediaType.EndsWith("hateoas", StringComparison.InvariantCultureIgnoreCase);
-    }
-
-    private LinkCollectionWrapper<Entity> CreateLinksForEmployees(HttpContext httpContext,
-        LinkCollectionWrapper<Entity> employeesWrapper)
-    {
-        employeesWrapper.Links.Add(new Link(_linkGenerator.GetUriByAction(httpContext,
-                "GetEmployeesForCompany", values: new { }),
-            "self",
-            "GET"));
-        return employeesWrapper;
     }
 }
