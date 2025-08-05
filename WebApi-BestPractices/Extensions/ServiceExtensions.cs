@@ -16,21 +16,26 @@ namespace WebApi_BestPractices.Extensions
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                );
             });
         }
 
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddScoped<ILoggerManager, LoggerManager>();
 
-        public static void ConfigureSqlContext(this IServiceCollection services,
-            IConfiguration configuration) =>
+        public static void ConfigureSqlContext(
+            this IServiceCollection services,
+            IConfiguration configuration
+        ) =>
             services.AddDbContext<RepositoryContext>(opts =>
-                opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b =>
-                    b.MigrationsAssembly("Repository")));
+                opts.UseSqlServer(
+                    configuration.GetConnectionString("sqlConnection"),
+                    b => b.MigrationsAssembly("Repository")
+                )
+            );
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();
@@ -40,15 +45,17 @@ namespace WebApi_BestPractices.Extensions
             services.Configure<MvcOptions>(config =>
             {
                 var mediaType = "application/vnd.hateoas+json";
-                var newtonsoftJsnoOutputFormatter =
-                    config.OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
+                var newtonsoftJsnoOutputFormatter = config
+                    .OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()
+                    ?.FirstOrDefault();
 
                 if (newtonsoftJsnoOutputFormatter is not null)
                 {
                     newtonsoftJsnoOutputFormatter.SupportedMediaTypes.Add(mediaType);
                 }
 
-                var xmlOutputFormatter = config.OutputFormatters.OfType<XmlDataContractSerializerInputFormatter>()
+                var xmlOutputFormatter = config
+                    .OutputFormatters.OfType<XmlDataContractSerializerInputFormatter>()
                     .FirstOrDefault();
 
                 if (xmlOutputFormatter is not null)

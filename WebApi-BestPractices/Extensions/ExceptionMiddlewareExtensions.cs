@@ -9,7 +9,10 @@ namespace WebApi_BestPractices.Extensions;
 
 public static class ExceptionMiddlewareExtendsions
 {
-    public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
+    public static void ConfigureExceptionHandler(
+        this IApplicationBuilder app,
+        ILoggerManager logger
+    )
     {
         app.UseExceptionHandler(appError =>
         {
@@ -24,8 +27,11 @@ public static class ExceptionMiddlewareExtendsions
                 {
                     logger.LogError($"Something went wrong: {contextFeature.Error}");
                     await context.Response.WriteAsync(
-                        new ErrorDetail(context.Response.StatusCode, "Internal Server Errror")
-                            .ToString());
+                        new ErrorDetail(
+                            context.Response.StatusCode,
+                            "Internal Server Errror"
+                        ).ToString()
+                    );
                 }
             });
         });

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace WebApi_BestPractices.Utility;
 
-public class EmployeeLinks
+public class EmployeeLinks : IEmployeeLinks
 {
     private readonly LinkGenerator _linkGenerator;
     private readonly IDataShaper<EmployeeDto> _dataShaper;
@@ -25,7 +25,7 @@ public class EmployeeLinks
     public LinkResponse TryGenerateLinks(
         IEnumerable<EmployeeDto> employeesDto,
         string fields,
-        Guid companyId,
+        long companyId,
         HttpContext httpContext
     )
     {
@@ -58,7 +58,7 @@ public class EmployeeLinks
     private LinkResponse ReturnLinkedEmployees(
         IEnumerable<EmployeeDto> employeesDto,
         string fields,
-        Guid companyId,
+        long companyId,
         HttpContext httpContext,
         List<Entity> shapedEmployees
     )
@@ -104,7 +104,7 @@ public class EmployeeLinks
 
     private List<Link> CreateLinksForEmployee(
         HttpContext httpContext,
-        Guid companyId,
+        long companyId,
         long id,
         string fields = ""
     )

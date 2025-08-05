@@ -1,15 +1,16 @@
+using System.IO;
 using Contracts;
+using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
-using System.IO;
-using Entities.DataTransferObjects;
+using Service.DataShaping;
 using WebApi_BestPractices.ActionFilters;
 using WebApi_BestPractices.Extensions;
-using Service.DataShaping;
+using WebApi_BestPractices.Utility;
 
 namespace WebApi_BestPractices
 {
@@ -17,7 +18,11 @@ namespace WebApi_BestPractices
     {
         public Startup(IConfiguration configuration)
         {
-            LogManager.Setup().LoadConfigurationFromFile(Path.Combine(Directory.GetCurrentDirectory(), "nlog.config"));
+            LogManager
+                .Setup()
+                .LoadConfigurationFromFile(
+                    Path.Combine(Directory.GetCurrentDirectory(), "nlog.config")
+                );
             Configuration = configuration;
         }
 
@@ -34,11 +39,14 @@ namespace WebApi_BestPractices
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllers(config =>
-            {
-                config.RespectBrowserAcceptHeader = true;
-                config.ReturnHttpNotAcceptable = true;
-            }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+            services
+                .AddControllers(config =>
+                {
+                    config.RespectBrowserAcceptHeader = true;
+                    config.ReturnHttpNotAcceptable = true;
+                })
+                .AddNewtonsoftJson()
+                .AddXmlDataContractSerializerFormatters();
             services.AddCustomMediaType();
 
             services.AddScoped<ValidateCompanyExistsAttribute>();
@@ -46,10 +54,15 @@ namespace WebApi_BestPractices
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
 
             services.AddScoped<ValidateMediaTypeAttribute>();
+            services.AddScoped<EmployeeLinks>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            ILoggerManager logger
+        )
         {
             if (env.IsDevelopment())
             {
@@ -62,10 +75,12 @@ namespace WebApi_BestPractices
 
             app.UseStaticFiles();
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
-            });
+            app.UseForwardedHeaders(
+                new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All,
+                }
+            );
 
             app.UseHsts();
 
