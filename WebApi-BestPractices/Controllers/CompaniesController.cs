@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebApi_BestPractices.ActionFilters;
 using WebApi_BestPractices.ModelBinders;
 
@@ -25,6 +25,14 @@ public class CompaniesController : ControllerBase
         _logger = logger;
         _mapper = mapper;
     }
+
+    [HttpOptions]
+    public IActionResult GetCompaniesOptinos()
+    {
+        Response.Headers["Allow"] = "GET, OPTIONS, POST";
+        return Ok();
+    }
+
 
     [HttpGet]
     public async Task<IActionResult> GetCompanies()
