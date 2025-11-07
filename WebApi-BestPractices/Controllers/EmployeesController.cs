@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -8,8 +6,9 @@ using Entities.RequestFeatures;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApi_BestPractices.ActionFilters;
-using WebApi_BestPractices.Utility;
 
 namespace WebApi_BestPractices.Controllers
 {
@@ -28,6 +27,46 @@ namespace WebApi_BestPractices.Controllers
         private readonly IMapper _mapper = mapper;
         private readonly IDataShaper<EmployeeDto> _dataShaper = dataShaper;
         private readonly IEmployeeLinks _employeeLinks = employeeLinks;
+
+
+        [HttpHead]
+        public async Task<IActionResult> GetEmployeesForCompany(long companyId, [FromQuery] EmployeeParameters employeeParameters)
+        {
+            if (!employeeParameters.ValidAge)
+            {
+                return BadRequest("Max age can't be less tha min age");
+            }
+
+            var company = await _repository.Company.GetCompany(companyId, trackChanges: false);
+
+            if (company is null)
+            {
+                _logger.LogInfo($"Company with id: ${companyId} doesn't exist");
+
+                return NotFound();
+            }
+
+            var employees = await _repository.Employe.GetEmployees(
+                companyId,
+                employeeParameters,
+                trackChanges: false
+            );
+
+            Response.Headers.TryAdd(
+                "X-Pagination",
+                JsonConvert.SerializeObject(employees.MetaData)
+            );
+
+            var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
+            var links = employeeLinks.TryGenerateLinks(
+                employeesDto,
+                employeeParameters.Fields,
+                companyId,
+                HttpContext
+            );
+            return links.HasLinks ? Ok(links.LinkedEntities) : Ok(links.ShapedEntities);
+        }
+
 
         // TODO: implement CompanyExists filter attribute
         [HttpGet]
