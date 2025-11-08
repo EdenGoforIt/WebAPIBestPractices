@@ -34,7 +34,7 @@ public class CompaniesController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpGet(Name = "GetCompanies")]
     public async Task<IActionResult> GetCompanies()
     {
         var companies = await _repository.Company.GetAllCompanies(false);
@@ -56,7 +56,7 @@ public class CompaniesController : ControllerBase
         return NotFound();
     }
 
-    [HttpPost]
+    [HttpPost(Name = "CreateCompany")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreatecCompany([FromBody] CompanyForCreationDto companyDto)
     {
