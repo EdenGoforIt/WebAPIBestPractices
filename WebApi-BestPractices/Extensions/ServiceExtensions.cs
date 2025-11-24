@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Contracts;
+﻿using Contracts;
 using LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -7,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
+using System.Linq;
 
 namespace WebApi_BestPractices.Extensions
 {
@@ -44,14 +44,16 @@ namespace WebApi_BestPractices.Extensions
         {
             services.Configure<MvcOptions>(config =>
             {
-                var mediaType = "application/vnd.hateoas+json";
                 var newtonsoftJsnoOutputFormatter = config
                     .OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()
                     ?.FirstOrDefault();
 
                 if (newtonsoftJsnoOutputFormatter is not null)
                 {
-                    newtonsoftJsnoOutputFormatter.SupportedMediaTypes.Add(mediaType);
+                    newtonsoftJsnoOutputFormatter.SupportedMediaTypes.Add("application/vnd.hateoas+json");
+                    newtonsoftJsnoOutputFormatter.SupportedMediaTypes.Add(
+                        "application/vnd.apiroot+json"
+                    );
                 }
 
                 var xmlOutputFormatter = config
@@ -60,7 +62,8 @@ namespace WebApi_BestPractices.Extensions
 
                 if (xmlOutputFormatter is not null)
                 {
-                    xmlOutputFormatter.SupportedMediaTypes.Add(mediaType);
+                    xmlOutputFormatter.SupportedMediaTypes.Add("application/vnd.apiroot+xml");
+                    xmlOutputFormatter.SupportedMediaTypes.Add("application/vnd.hateoas+xml");
                 }
             });
         }
